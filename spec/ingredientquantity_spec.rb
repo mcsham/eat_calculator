@@ -30,6 +30,7 @@ describe IngredientQuantity do
         expect(new_ingredient_quantity.total_cost).to eq(ingredient_tomato.total_cost)
         expect(new_ingredient_quantity.name_ingredient).to eq('Tomato')
       end
+
       let(:ingredient_tomato2) { described_class.new(ingredient: tomato, quantity: 1000) }
       it "якщо обэкт не пустий" do
         ingredient_quantity += ingredient_tomato2
@@ -39,15 +40,51 @@ describe IngredientQuantity do
         expect(ingredient_quantity.quantity).to eq(ingredient_tomato.quantity + \
                                                           ingredient_tomato2.quantity)
       end
+      let(:ingredient_tomato) { described_class.new(ingredient: tomato, quantity: 2000) }
+      let(:egs) { Ingredient.new(name: 'Egs', cost: 10) }
+      let(:ingredient_egs) { described_class.new(ingredient: egs, quantity: 500) }
+      it "якщо обэкт не пустий і продуємо додати левак" do
+        ingredient_quantity += ingredient_egs
+        expect(ingredient_quantity.total_cost).to eq(ingredient_tomato.total_cost)
+        expect(ingredient_quantity.name_ingredient).to eq('Tomato')
+        expect(ingredient_quantity.quantity).to eq(ingredient_tomato.quantity)
+      end
     end
   end
+
   describe "#*" do
-    context "помножемо на обєкт" do
+    before do
       let(:tomato) { Ingredient.new(name: 'Tomato', cost: 80) }
       let(:ingredient_tomato) { described_class.new(ingredient: tomato, quantity: 2000) }
-      it "" do
-
+    end
+    context "помножемо на обєкт" do
+      let(:ingredient_quantity) { described_class.new }
+      it "пустий обєкт" do
+        ingredient_quantity *= 2
+        expect(ingredient_quantity.total_cost).to eq(0)
+        expect(ingredient_quantity.name_ingredient).to eq(nil)
       end
+      it "Не пустий обєкт * 2" do
+        ingredient_tomato *= 2
+        expect(ingredient_quantity.total_cost).to eq(3200)
+        expect(ingredient_quantity.quantity).to eq(4000)
+      end
+      it "Не пустий обєкт * 10" do
+        ingredient_tomato *= 10
+        expect(ingredient_quantity.total_cost).to eq(16000)
+        expect(ingredient_quantity.quantity).to eq(20000)
+      end
+      it "Не пустий обєкт * -3" do
+        ingredient_tomato *= -3
+        expect(ingredient_quantity.total_cost).to eq(1600)
+        expect(ingredient_quantity.quantity).to eq(2000)
+      end
+      it "Не пустий обєкт * 0" do
+        ingredient_tomato *= 0
+        expect(ingredient_quantity.total_cost).to eq(1600)
+        expect(ingredient_quantity.quantity).to eq(2000)
+      end
+
     end
   end
 end
