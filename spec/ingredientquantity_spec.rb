@@ -21,6 +21,7 @@ describe IngredientQuantity do
 
     end
 
+
     let(:tomato) { described_class.new(name: 'Tomato', cost: 100) }
   end
 end
