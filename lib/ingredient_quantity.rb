@@ -1,6 +1,6 @@
 class IngredientQuantity
 
-  def initialize(opt)
+  def initialize(opt = {})
 
   end
 
