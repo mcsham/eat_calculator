@@ -5,4 +5,8 @@ attr_reader :name, :cost
     @name = opt[:name]
     @cost = opt[:cost]
   end
+
+  def == (obj)
+    obj.name == @name && obj.cost == @cost
+  end
 end

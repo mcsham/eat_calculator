@@ -1,9 +1,9 @@
 require 'ingredient'
-
+  
 describe Ingredient do
   describe '#==' do
     let(:pomodoro) { described_class.new(name: 'Tomato', cost: 100) }
-    let(:tomato) { described_class.new(name: 'Tomato', cost: 200) }
+    let(:tomato) { described_class.new(name: 'Tomato', cost: 100) }
 
     context "when ingredients are equal" do
       it "they are truly equel"  do
