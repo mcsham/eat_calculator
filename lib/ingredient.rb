@@ -1,9 +1,9 @@
 class Ingredient
   attr_reader :name, :cost
 
-  def initialize(opt)
-    @name = opt[:name]
-    @cost = opt[:cost] # price 100g in cent's
+  def initialize(name:, cost:)
+    @name = name || nil
+    @cost = cost || 0 # price 100g in cent's
   end
 
   def ==(obj)
