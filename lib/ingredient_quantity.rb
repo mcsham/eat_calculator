@@ -1,33 +1,41 @@
 require 'ingredient'
 
-class IngredientQuantity < Ingredient
-  attr_reader :total_cost, :quantity
+class IngredientQuantity
+  attr_reader :total_cost, :quantity, :ingredient
 
 
   def initialize(ingredient:nil, quantity: 0)
-    if ingredient
-      super name: ingredient.name, cost: ingredient.cost
-    else
-      super name: nil,cost:nil
-    end
     @quantity = quantity
+    @ingredient = ingredient
+    @total_cost = 0
     set_new_total_cost
+
   end
 
   def +(ingredient_quantity)
-    if self == ingredient_quantity
-      @quantity += ingredient_quantity.quantity
+    if @ingredient == ingredient_quantity.ingredient
+      quantity =  @quantity + ingredient_quantity.quantity
+      IngredientQuantity.new( ingredient: @ingredient, quantity: quantity)
+    else
+      raise ArgumentError
+    end
+  end
+
+  def *(count)
+    if count>0 && @ingredient
+      @quantity *= count
       set_new_total_cost
       self
     else
-      ingredient_quantity
+      raise ArgumentError
     end
 
   end
+
   private
 
   def set_new_total_cost
-    @total_cost = @quantity * self.cost / 100
+    @total_cost = @quantity * @ingredient.cost / 1000 if @ingredient
   end
 end
 
