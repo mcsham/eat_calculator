@@ -70,17 +70,32 @@ describe Recipe do
     let(:soup) { described_class.new( name: 'soup',
                                       ingredient_quantities: [tomatos_bag, popatos_bag],
                                       servings_count: 2) }
-    context 'ціна однієї порції' do
-      it 'ціна однієї порції не може бути 0' do
-        expect(soup.cost_of_one_serving).to_not be zero
+    context 'інгредієнти однієї порції' do
+      it 'перевірка чи не 0' do
+        expect( soup.ingredient_quantities_per_one).to_not be zero
       end
-      it 'ціна однієї порції рівна' do
-        expect(soup.cost_of_one_serving).to eq(105)
+      it 'перевірка відповідного масиву' do
+        result = soup.ingredient_quantities_per_one.map do |ingredient_quantity|
+          ingredient_quantity.quantity
+        end
+        expect(result).to eq([275, 75])
       end
     end
   end
 
   describe 'cost_of_one_serving' do
-
+    let(:tomatos_bag) { bag_of( tomato(300), 550 ) } # 165
+    let(:popatos_bag) { bag_of( potato(300), 150 ) } # 45
+    let(:soup) { described_class.new( name: 'soup',
+                                      ingredient_quantities: [tomatos_bag, popatos_bag],
+                                      servings_count: 2) }
+    context 'ціна однієї порції' do
+      it 'ціна однієї порції не може бути 0' do
+        expect(soup.cost_of_one_serving).to_not be zero
+      end
+      it 'ціна однієї порції рівна' do
+        expect(soup.cost_of_one_serving).to eq(104)
+      end
+    end
   end
 end

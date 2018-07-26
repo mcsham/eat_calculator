@@ -23,9 +23,8 @@ class IngredientQuantity
 
   def *(count)
     if count>0 && @ingredient
-      @quantity = (@quantity *count).to_i
-      set_new_total_cost
-      self
+      quantity = (@quantity *count).to_i
+      IngredientQuantity.new(ingredient: @ingredient, quantity: quantity)
     else
       raise ArgumentError
     end
