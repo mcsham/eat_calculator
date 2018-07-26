@@ -56,6 +56,11 @@ describe IngredientQuantity do
         expect(@ingredient_tomato.total_cost).to eq(1600)
         expect(@ingredient_tomato.quantity).to eq(20000)
       end
+      it "Не пустий обєкт * 0.5" do
+        @ingredient_tomato *= 0.5
+        expect(@ingredient_tomato.total_cost).to eq(80)
+        expect(@ingredient_tomato.quantity).to eq(1000)
+      end
       it "Не пустий обєкт * -3" do
         expect {ingredient_quantity *= -3}.to raise_error(ArgumentError)
       end

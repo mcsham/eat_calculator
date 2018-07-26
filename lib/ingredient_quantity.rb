@@ -23,7 +23,7 @@ class IngredientQuantity
 
   def *(count)
     if count>0 && @ingredient
-      @quantity *= count
+      @quantity = (@quantity *count).to_i
       set_new_total_cost
       self
     else
