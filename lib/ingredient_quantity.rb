@@ -38,8 +38,3 @@ class IngredientQuantity
     @total_cost = @quantity * @ingredient.cost / 1000 if @ingredient
   end
 end
-
-# t = Ingredient.new name:"Tomato", cost: 80
-#
-# i = IngredientQuantity.new ingredient: t, quantity: 2000
-# p i.total_cost

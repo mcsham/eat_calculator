@@ -62,16 +62,22 @@ describe Recipe do
       end
 
     end
-
-    let(:spagetti_bag) { bag_of(spaghetti(1000), 200 ) } # 200
-    let(:mecicano_spaghetti) { described_class.new( name: 'mecicano spaghetti',
-                                                    ingredient_quantities: [tomatos_bag, popatos_bag, spagetti_bag],
-                                                    servings_count: 1) }
-
   end
 
   describe 'ingredient_quantities_per_one_serving' do
-
+    let(:tomatos_bag) { bag_of( tomato(300), 550 ) } # 165
+    let(:popatos_bag) { bag_of( potato(300), 150 ) } # 45
+    let(:soup) { described_class.new( name: 'soup',
+                                      ingredient_quantities: [tomatos_bag, popatos_bag],
+                                      servings_count: 2) }
+    context 'ціна однієї порції' do
+      it 'ціна однієї порції не може бути 0' do
+        expect(soup.cost_of_one_serving).to_not be zero
+      end
+      it 'ціна однієї порції рівна' do
+        expect(soup.cost_of_one_serving).to eq(105)
+      end
+    end
   end
 
   describe 'cost_of_one_serving' do

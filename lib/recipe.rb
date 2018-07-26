@@ -9,8 +9,8 @@ class Recipe
     @name = name
     @servings_count = servings_count
     @ingredient_quantities = ingredient_quantities
-
     calc_total_cost
+    calc_ingredient_quantities_per_one_and_cost
   end
 
 
@@ -29,9 +29,15 @@ class Recipe
     end
   end
 
-  def calc_ingredient_quantities_per_one_and_cost
-
+  def calc_per_one_cost
+    @cost_of_one_serving = @ingredient_quantities_per_one.reduce(0) do |result, ingredient_quantity|
+      result += ingredient_quantity.total_cost
+    end
   end
 
+  def calc_ingredient_quantities_per_one_and_cost
+    @ingredient_quantities_per_one = ingredient_quantities_per_servings(n: 1)
+    calc_per_one_cost
+  end
 
 end
